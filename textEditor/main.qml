@@ -20,7 +20,7 @@ ApplicationWindow
         id: cutAction
         text: "cut"
         shortcut: "ctlr+x"
-        iconSource: "images/editcut.pgn"
+        iconSource: "images/editcut.png"
         iconName: "edit-cut"
         onTriggered: TextArea.cut()
     }
@@ -61,6 +61,24 @@ ApplicationWindow
             title: "&Help"
             MenuItem {text: "About ..."; onTriggered: aboutBox.open()}
         }
+    }
+
+    //*********************************************ToolBar***************************
+
+    toolBar: ToolBar
+    {
+        id: maintToolBar
+        width: parent.width
+
+        RowLayout
+        {
+            anchors.fill: parent
+            spacing: 0
+            ToolBarSeparator {}
+            ToolButton {action: cutAction}
+        }
+
+        Item { Layout.fillWidth: true }
     }
 
 }
