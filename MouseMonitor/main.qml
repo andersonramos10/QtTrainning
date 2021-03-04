@@ -1,23 +1,28 @@
-import QtQuick 2.5
-import QtQuick.Window 2.2
-import QtQuick.Controls 1.4
+import QtQuick 2.2
+import QtQuick.Window 2.1
+import QtQuick.Controls 1.2
+import QtQuick.Layouts 1.0
+import QtQuick.Dialogs 1.1
 
-Window
+ApplicationWindow
 {
     width: 500
     height: 500
     visible: true
     id: root
 
-    Row{
+    Row
+    {
         id: tools
 
-        Button{
+        Button
+        {
             id: clear
             text: "Clear"
-            onClicked:{
+            onClicked:
+            {
                 mouse.clear
-              canvas.clear()
+                canvas.clear()
             }
         }
 
@@ -31,6 +36,39 @@ Window
             }
         }
     }
+
+    MessageDialog //Define a dialog to be shown inside the "Help" menu. No need to define an action for the Help menu, since it does nothing
+    {
+        id: aboutBox
+        title: "about Text"
+        text: "This is an example for trainnning purposes"
+        icon: StandardIcon.Information
+    }
+
+    menuBar: MenuBar //Upper menu with options to show submenus(MenuItem)
+        {
+            Menu
+            {
+                title: "&File"
+                MenuItem {text: "Quit"; onTriggered: Qt.quit()}
+            }
+
+            Menu
+            {
+                title: "&Edit"
+            }
+
+            Menu
+            {
+                title: "&Format"
+            }
+
+            Menu
+            {
+                title: "&Help"
+                MenuItem {text: "About ..."; onTriggered: aboutBox.open()}
+            }
+        }
 
     //*****Canvas: Area to let you Draw
     Canvas
