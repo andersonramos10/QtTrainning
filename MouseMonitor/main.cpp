@@ -1,11 +1,16 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QQmlEngine>
+#include <QQmlContext>
+#include <mousememory.h>
 
 int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     QGuiApplication app(argc, argv);
+
+    QScopedPointer<MouseMemory> mouse(new MouseMemory); //Create a scoped pointer to our class
 
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/main.qml"));
@@ -15,6 +20,8 @@ int main(int argc, char *argv[])
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
     engine.load(url);
+
+    engine.rootContext()->setContextProperty("mouse", mouse.data());
 
     return app.exec();
 }

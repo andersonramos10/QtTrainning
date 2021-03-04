@@ -1,6 +1,6 @@
-import QtQuick 2.12
-import QtQuick.Window 2.12
-import QtQuick.Controls 2.12
+import QtQuick 2.5
+import QtQuick.Window 2.2
+import QtQuick.Controls 1.4
 
 Window
 {
@@ -9,17 +9,15 @@ Window
     visible: true
     id: root
 
-    Row
-    {
+    Row{
         id: tools
 
-        Button
-        {
+        Button{
             id: clear
             text: "Clear"
-            onClicked:
-            {
-
+            onClicked:{
+                mouse.clear
+              canvas.clear()
             }
         }
 
@@ -38,16 +36,24 @@ Window
     Canvas
     {
         id: canvas
-        anchors.top: tolls.bottom
+        anchors.top: tools.bottom
         width: 500
         height: 500
         property int lastX: 0 //tracks the position of the mouse cursor
         property int lastY: 0
 
+        function clear()
+        {
+            var conxt = getContext("2d")
+            conxt.reset()
+            canvas.requestPaint()
+            mouse.clear()
+        }
+
         onPaint:
         {
             var contx = getContext("2d") //get the 2d canvas
-            contx.lineWidth = 2;
+            contx.lineWidth = 2
             contx.strokeStyle = color.red
 
             contx.beginPath()
@@ -56,6 +62,8 @@ Window
             lastY = area.mouseY
             contx.lineTo(lastX, lastY)
             contx.stroke()
+
+            mouse.test() //get from the pointer "mouse" created in .h. Call the function test defined in .cpp
 
         }
     }
@@ -74,7 +82,7 @@ Window
 
         onPositionChanged:
         {
-            canvas.requestPaint(); //request a paint action form onPaint on canvas
+            canvas.requestPaint() //request a paint action form onPaint on canvas
         }
     }
 
