@@ -1,5 +1,9 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>ToolBarSeparator.qml</file>
+        <file>images/filesave.png</file>
+        <file>images/eraser.png</file>
+        <file>images/editcut.png</file>
     </qresource>
 </RCC>

@@ -45,30 +45,50 @@ ApplicationWindow
         icon: StandardIcon.Information
     }
 
+    Action
+    {
+        id: saveAction
+        text: "save"
+        shortcut: "ctlr+s"
+        iconSource: "images/filesave.png"
+        iconName: "save"
+        onTriggered: canvas.clear()
+    }
+
+    Action
+    {
+        id: clearAction
+        text: "clear"
+        shortcut: "ctlr+x"
+        iconSource: "images/editcut.png"
+        iconName: "clear"
+        onTriggered: canvas.clear()
+    }
+
     menuBar: MenuBar //Upper menu with options to show submenus(MenuItem)
+    {
+        Menu
         {
-            Menu
-            {
-                title: "&File"
-                MenuItem {text: "Quit"; onTriggered: Qt.quit()}
-            }
-
-            Menu
-            {
-                title: "&Edit"
-            }
-
-            Menu
-            {
-                title: "&Format"
-            }
-
-            Menu
-            {
-                title: "&Help"
-                MenuItem {text: "About ..."; onTriggered: aboutBox.open()}
-            }
+            title: "&File"
+            MenuItem {text: "Quit"; onTriggered: Qt.quit()}
         }
+
+        Menu
+        {
+            title: "&Edit"
+        }
+
+        Menu
+        {
+            title: "&Format"
+        }
+
+        Menu
+        {
+            title: "&Help"
+            MenuItem {text: "About ..."; onTriggered: aboutBox.open()}
+        }
+    }
 
     //*****Canvas: Area to let you Draw
     Canvas
@@ -104,6 +124,25 @@ ApplicationWindow
             mouse.test() //get from the pointer "mouse" created in .h. Call the function test defined in .cpp
 
         }
+    }
+
+    //*********************************************ToolBar***************************
+
+    toolBar: ToolBar
+    {
+        id: maintToolBar
+        width: parent.width
+
+        RowLayout
+        {
+            anchors.fill: parent
+            spacing: 0
+            ToolButton {action: clearAction}
+            //ToolBarSeparator {}
+            ToolButton {action: saveAction}
+        }
+
+        Item { Layout.fillWidth: true }
     }
 
     //track mouse movement
